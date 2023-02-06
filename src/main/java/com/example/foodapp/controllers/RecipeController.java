@@ -5,7 +5,7 @@ import com.example.foodapp.services.RecipeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("recipe")
+@RequestMapping("/recipe")
 @RestController
 public class RecipeController {
     private  RecipeService recipeService;

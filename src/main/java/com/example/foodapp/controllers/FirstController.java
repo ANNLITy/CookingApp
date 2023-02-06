@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class FirstController {
 
 
-    @GetMapping("/start")
+    @GetMapping("/")
     public String start(){
         return "Приложение запущено";
     }
 
     @GetMapping("/info")
     public String info(){
-        return "Имя ученика: Анна Литяева\nПроект:FoodApp\nДата создания:02.02.2023\nОписание:приложение для сайта рецептов";
+        return "Имя ученика: Анна Литяева  Проект:FoodApp Дата создания:02.02.2023 Описание:приложение для сайта рецептов";
 
     }
 }

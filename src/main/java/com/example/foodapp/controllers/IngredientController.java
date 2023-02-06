@@ -4,7 +4,7 @@ import com.example.foodapp.services.IngredientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("Ingredient")
+@RequestMapping("/ingredient")
 @RestController
 public class IngredientController {
     private IngredientService ingredientService;
