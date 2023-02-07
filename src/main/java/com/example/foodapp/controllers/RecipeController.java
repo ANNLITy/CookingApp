@@ -8,22 +8,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/recipe")
 @RestController
 public class RecipeController {
-    private  RecipeService recipeService;
-    public RecipeController(RecipeController recipeController){
-        this.recipeService = recipeService;
+    private final  RecipeService recipeService;
+    public  RecipeController(RecipeController recipeService){
+        this.recipeService = (RecipeService) recipeService;
     }
-    @PostMapping
-    public ResponseEntity addRecipe(@RequestBody Recipe recipe){
+    @PostMapping("/add")
+    public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe recipe){
         Recipe newRecipe = recipeService.addRecipe(recipe);
         return ResponseEntity.ok(newRecipe);
     }
-    @GetMapping
-    public ResponseEntity getRecipe(@PathVariable int id){
+    @GetMapping("/get")
+    public ResponseEntity<Recipe> getRecipe(@RequestParam int id){
     Recipe recipe =recipeService.getRecipe(id);
     if(recipe==null){
         return ResponseEntity.notFound().build();
     }
         return ResponseEntity.ok(recipe);
     }
+
 
 }

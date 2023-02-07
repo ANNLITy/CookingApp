@@ -1,15 +1,14 @@
 package com.example.foodapp.impl;
-
 import com.example.foodapp.model.Ingredient;
-
 import com.example.foodapp.services.IngredientService;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.TreeMap;
-
+@Service
 public class IngredientServiceImpl implements IngredientService {
     private static int id = 1;
-    private static Map<Integer, Ingredient> ingredients = new TreeMap<>();
+    private final Map<Integer, Ingredient> ingredients = new TreeMap<>();
     @Override
     public Ingredient addIngredient(Ingredient ingredient ) {
         ingredients.put(id++,ingredient);
@@ -19,8 +18,6 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient getIngredient(int id) {
-        ingredients.get(id);
-
-        return null;
+       return ingredients.get(id);
     }
 }
