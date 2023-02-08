@@ -20,6 +20,7 @@ public class RecipeController {
     @GetMapping("/")
     public ResponseEntity<Recipe> getRecipe(@RequestParam int id){
     Recipe recipe =recipeService.getRecipe(id);
+
     if(recipe==null){
         return ResponseEntity.notFound().build();
     }

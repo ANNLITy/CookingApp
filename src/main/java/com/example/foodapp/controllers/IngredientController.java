@@ -22,6 +22,7 @@ public class IngredientController {
         if(ingredient==null){
             return ResponseEntity.notFound().build();
         }
+
         return ResponseEntity.ok(ingredient);
     }
 
