@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class IngredientController {
     private final   IngredientService ingredientService;
-    public IngredientController(IngredientController ingredientService){
+    public IngredientController(IngredientService ingredientService){
         this.ingredientService = (IngredientService) ingredientService;
     }
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient){
         Ingredient newIngredient = ingredientService.addIngredient(ingredient);
         return ResponseEntity.ok(newIngredient);
     }
-    @GetMapping("/get")
+    @GetMapping("/")
     public ResponseEntity<Ingredient> getIngredient(@RequestParam int id){
         Ingredient ingredient =ingredientService.getIngredient(id);
         if(ingredient==null){
