@@ -3,6 +3,11 @@ package com.example.foodapp.services;
 import com.example.foodapp.model.Recipe;
 
 public interface RecipeService {
-    Recipe addRecipe(Recipe recipe);
-    Recipe getRecipe(int id);
+    long addRecipe(Recipe recipe);
+
+    Recipe getRecipe(long id);
+
+    Recipe editRecipe(long id, Recipe recipe);
+
+    boolean deleteRecipe(long id);
 }

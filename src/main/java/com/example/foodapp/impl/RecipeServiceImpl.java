@@ -7,17 +7,42 @@ import java.util.Map;
 import java.util.TreeMap;
 @Service
 public class RecipeServiceImpl implements RecipeService {
-private static int id = 1;
-    private final Map<Integer, Recipe> recipes = new TreeMap<>();
+private static long lastId = 1;
+    private final   Map<Long, Recipe> recipes = new TreeMap<>();
     @Override
-    public Recipe addRecipe(Recipe recipe) {
-        recipes.put(id++,recipe);
+    public long addRecipe(Recipe recipe) {
 
-        return recipe;
+        recipes.put(lastId, recipe);
+
+        return lastId++;
     }
 
     @Override
-    public Recipe getRecipe(int id) {
+    public Recipe getRecipe(long id) {
         return recipes.get(id);
     }
+
+    @Override
+    public Recipe editRecipe(long id, Recipe recipe) {
+        if (recipes.containsKey(id)){
+            recipes.put(id,recipe);
+        }
+        return null;
+    }
+
+
+
+    @Override
+    public boolean deleteRecipe(long id) {
+        if (recipes.containsKey(id)) {
+            recipes.remove(id);
+            return true;
+        }
+
+        return false;
+    }
+
+
 }
+
+

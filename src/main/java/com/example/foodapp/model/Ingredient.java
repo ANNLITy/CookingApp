@@ -9,4 +9,4 @@ public class Ingredient {
     private int numberOfIngredients;
     private String measureUnit;
 
-}
+    }

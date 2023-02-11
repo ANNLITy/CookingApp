@@ -4,6 +4,10 @@ import com.example.foodapp.model.Ingredient;
 
 
 public interface IngredientService {
-    Ingredient addIngredient(Ingredient Ingredient);
-    Ingredient getIngredient(int id);
+    long addIngredient(Ingredient Ingredient);
+    Ingredient getIngredient(long lastId);
+
+    Ingredient editIngredient(long id, Ingredient ingredient);
+
+    boolean deleteIngredient(long id);
 }
