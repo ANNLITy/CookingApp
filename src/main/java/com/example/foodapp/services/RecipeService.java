@@ -2,6 +2,8 @@ package com.example.foodapp.services;
 
 import com.example.foodapp.model.Recipe;
 
+import java.util.List;
+
 public interface RecipeService {
     long addRecipe(Recipe recipe);
 
@@ -9,7 +11,7 @@ public interface RecipeService {
 
     Recipe editRecipe(long id, Recipe recipe);
 
-    String getAllRecipes();
+    List getAllRecipes();
 
     boolean deleteRecipe(long id);
 }

@@ -1,8 +1,10 @@
 package com.example.foodapp.impl;
+import com.example.foodapp.model.Ingredient;
 import com.example.foodapp.model.Recipe;
 import com.example.foodapp.services.RecipeService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 @Service
@@ -30,14 +32,8 @@ private static long lastId = 1;
         return null;
     }
     @Override
-    public String getAllRecipes() {
-        String recipe = null;
-        for (Map.Entry<Long, Recipe> entry : recipes.entrySet()) {
-            Integer key = Math.toIntExact(entry.getKey());
-            String value = String.valueOf(entry.getValue());
-            recipe = key + value;
-        }
-        return recipe;
+    public List<Recipe> getAllRecipes() {
+        return recipes.values().stream().toList();
     }
 
 

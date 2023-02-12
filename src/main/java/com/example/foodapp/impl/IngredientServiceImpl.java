@@ -26,14 +26,8 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public String getAllIngredients() {
-        String ingredient = null;
-        for (Map.Entry<Long, Ingredient> entry : ingredients.entrySet()) {
-            Integer key = Math.toIntExact(entry.getKey());
-            String value = String.valueOf(entry.getValue());
-            ingredient = key + value;
-        }
-        return ingredient;
+    public List<Ingredient> getAllIngredients() {
+        return ingredients.values().stream().toList();
     }
 
     @Override

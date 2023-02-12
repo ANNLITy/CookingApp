@@ -4,6 +4,8 @@ import com.example.foodapp.services.IngredientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/ingredient")
 @RestController
 public class IngredientController {
@@ -25,9 +27,9 @@ public class IngredientController {
         return ResponseEntity.ok(ingredient);
     }
     @GetMapping("/")
-    public ResponseEntity<String> getAllIngredients(){
-       String ingredients = ingredientService.getAllIngredients();
-        return  ResponseEntity.ok(ingredients);
+    public ResponseEntity<List<Ingredient>> getAllIngredients(){
+        List<Ingredient> ingredients = ingredientService.getAllIngredients();
+        return ResponseEntity.ok(ingredients);
     }
 
     @PutMapping("/{id}")
