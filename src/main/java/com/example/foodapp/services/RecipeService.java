@@ -9,5 +9,7 @@ public interface RecipeService {
 
     Recipe editRecipe(long id, Recipe recipe);
 
+    String getAllRecipes();
+
     boolean deleteRecipe(long id);
 }

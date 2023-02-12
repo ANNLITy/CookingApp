@@ -1,6 +1,5 @@
 package com.example.foodapp.controllers;
 import com.example.foodapp.model.Ingredient;
-import com.example.foodapp.model.Recipe;
 import com.example.foodapp.services.IngredientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +18,16 @@ public class IngredientController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Ingredient> getIngredient(@PathVariable long id){
-        Ingredient ingredient =ingredientService.getIngredient(id);
+        Ingredient ingredient = ingredientService.getIngredient(id);
         if(ingredient==null){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(ingredient);
+    }
+    @GetMapping("/")
+    public ResponseEntity<String> getAllIngredients(){
+       String ingredients = ingredientService.getAllIngredients();
+        return  ResponseEntity.ok(ingredients);
     }
 
     @PutMapping("/{id}")

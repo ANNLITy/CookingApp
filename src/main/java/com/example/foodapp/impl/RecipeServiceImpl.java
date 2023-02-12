@@ -29,6 +29,16 @@ private static long lastId = 1;
         }
         return null;
     }
+    @Override
+    public String getAllRecipes() {
+        String recipe = null;
+        for (Map.Entry<Long, Recipe> entry : recipes.entrySet()) {
+            Integer key = Math.toIntExact(entry.getKey());
+            String value = String.valueOf(entry.getValue());
+            recipe = key + value;
+        }
+        return recipe;
+    }
 
 
 
