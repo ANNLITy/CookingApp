@@ -2,6 +2,7 @@ package com.example.foodapp.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 

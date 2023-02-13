@@ -2,9 +2,8 @@ package com.example.foodapp.impl;
 import com.example.foodapp.model.Ingredient;
 import com.example.foodapp.services.IngredientService;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 public class IngredientServiceImpl implements IngredientService {
@@ -47,6 +46,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         return false;
     }
+
 
 
     }
