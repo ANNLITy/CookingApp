@@ -1,5 +1,4 @@
 package com.example.foodapp.impl;
-import com.example.foodapp.model.Ingredient;
 import com.example.foodapp.model.Recipe;
 import com.example.foodapp.services.RecipeService;
 import org.springframework.stereotype.Service;
@@ -34,6 +33,10 @@ private static long lastId = 1;
     @Override
     public List<Recipe> getAllRecipes() {
         return recipes.values().stream().toList();
+    }
+    @Override
+    public Recipe get(long id) {
+        return recipes.get(id);
     }
 
 

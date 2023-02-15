@@ -14,4 +14,9 @@ public interface RecipeService {
     List getAllRecipes();
 
     boolean deleteRecipe(long id);
+
+
+    Recipe get(long id);;
+
+
 }

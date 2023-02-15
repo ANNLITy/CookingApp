@@ -38,9 +38,22 @@ public class IngredientController {
             summary = "Получить ингредиент",
             description= "Необходимо ввести id ингредиента"
     )
-    @ApiResponse(
-            responseCode = "404",
-            description = "ингредиент не был найден"
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "ингредиент найден",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Ingredient.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "ингредиент не был найден"
+            )
+    }
     )
 
     public ResponseEntity<Ingredient> getIngredient(@PathVariable long id){
@@ -79,9 +92,16 @@ public class IngredientController {
             summary = "Изменить ингредиент",
             description= "Редактирование параметров ингредиента"
     )
-    @ApiResponse(
-            responseCode = "404",
-            description = "ингредиента не был найден"
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "ингредиент был изменён"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "ингредиент не был найден"
+            )
+    }
     )
     public ResponseEntity<Ingredient> editIngredient(@PathVariable long id,@RequestBody Ingredient ingredient) {
         Ingredient ingredient1 = ingredientService.editIngredient(id,ingredient);
@@ -95,9 +115,16 @@ public class IngredientController {
             summary = "Удалить ингредиент",
             description= "Удаление ингредиента из списка"
     )
-    @ApiResponse(
-            responseCode = "404",
-            description = "ингредиента не был найден"
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "ингредиент был удалён"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "ингредиент не был найден"
+            )
+    }
     )
     public ResponseEntity<Void> deleteIngredient(@PathVariable long id){
         if(ingredientService.deleteIngredient(id)){
