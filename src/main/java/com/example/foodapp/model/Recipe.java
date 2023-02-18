@@ -5,14 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-
 public class Recipe {
     private String name;
-    private int cookingTime;
-    ArrayList<Ingredient> Ingredients;
-    ArrayList<String> cookingSteps;
-
+    private int time;
+    private int portions;
+    private List<Ingredient> ingredients;
+    private List<String> steps;
 }

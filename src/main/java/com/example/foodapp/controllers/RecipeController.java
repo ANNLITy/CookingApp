@@ -9,40 +9,33 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.management.StringValueExp;
 import java.util.List;
 
-@RequestMapping("/recipe")
 @RestController
-@Tag(name = "Рецепты", description = "Добавление,изменение,удаление и просмотр рецептов")
+@RequestMapping("/recipes")
+@Tag(name = "Рецепты", description = "Добавление,просмотр,изменение и удаление рецептов")
 public class RecipeController {
-    private final  RecipeService recipeService;
-    public  RecipeController(RecipeService recipeService){
+    private final RecipeService recipeService;
+
+    public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
-    @PostMapping("/")
-    @Operation(
-            summary = "Добавить рецепт",
-            description= "Ввод названия,ингредиентов,способа приготовления"
-    )
+
+    @PostMapping
+    @Operation(summary = "добавление рецепта ")
     @ApiResponse(
             responseCode = "200",
             description = "рецепт был добавлен"
     )
-
-    public ResponseEntity<Long> addRecipe(@RequestBody Recipe recipe){
-        long id = recipeService.addRecipe(recipe);
-        return ResponseEntity.ok(id);
+    public ResponseEntity<Integer> addRecipe(@RequestBody Recipe recipe) {
+        int id = recipeService.add(recipe);
+        return ResponseEntity.ok().body(id);
     }
+
     @GetMapping("/{id}")
-    @Operation(
-            summary = "Получить рецепт",
-            description= "Необходимо ввести id рецепта"
-    )
+    @Operation(summary = "получение рецепта по id")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -60,22 +53,20 @@ public class RecipeController {
             )
     }
     )
-    public ResponseEntity<Recipe> getRecipe(@PathVariable long id){
-        Recipe recipe =recipeService.getRecipe(id);
-        if(recipe==null){
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Recipe> getRecipe(@PathVariable int id) {
+        Recipe recipe = recipeService.get(id);
+        if (ObjectUtils.isNotEmpty(recipe)) {
+            return ResponseEntity.ok(recipe);
         }
-        return ResponseEntity.ok(recipe);
+        return ResponseEntity.notFound().build();
     }
+
     @GetMapping("/")
-    @Operation(
-            summary = "Получить все рецепты",
-            description= "Вывод всех рецептов"
-    )
+    @Operation(summary = "получение списка всех рецептов")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "выведены все рецепты",
+                    description = "список всех рецептов",
                     content = {
                             @Content(
                                     mediaType = "application/json",
@@ -85,15 +76,13 @@ public class RecipeController {
             )
     }
     )
-    public ResponseEntity<List<Recipe>> getAllRecipes(){
-            List<Recipe> recipes = recipeService.getAllRecipes();
-            return  ResponseEntity.ok(recipes);
-        }
+    public ResponseEntity<List<Recipe>> getAllRecipes() {
+        List<Recipe> recipes = recipeService.getAll();
+        return ResponseEntity.ok(recipes);
+    }
+
     @PutMapping("/{id}")
-    @Operation(
-            summary = "Изменить рецепт",
-            description= "Редактирование рецепта"
-    )
+    @Operation(summary = "изменение рецепта")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -105,18 +94,16 @@ public class RecipeController {
             )
     }
     )
-    public ResponseEntity<Recipe> editRecipe(@PathVariable long id,@RequestBody Recipe recipe) {
+    public ResponseEntity<Recipe> editRecipe(@PathVariable int id, @RequestBody Recipe recipe) {
         if (ObjectUtils.isNotEmpty(recipeService.get(id))) {
-            recipeService.editRecipe(id, recipe);
+            recipeService.edit(id, recipe);
             return ResponseEntity.ok(recipe);
         }
         return ResponseEntity.notFound().build();
     }
+
     @DeleteMapping("/{id}")
-    @Operation(
-            summary = "Удалить рецепт",
-            description= "Удаление рецепта из списка"
-    )
+    @Operation(summary = "удаление рецепта")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -128,11 +115,12 @@ public class RecipeController {
             )
     }
     )
-    public ResponseEntity<Void> deleteRecipe(@PathVariable long id){
-        if(recipeService.deleteRecipe(id)){
+    public ResponseEntity<Void> deleteRecipe(@PathVariable int id) {
+        if (recipeService.delete(id)) {
             return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 }
 

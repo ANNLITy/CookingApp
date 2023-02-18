@@ -5,18 +5,13 @@ import com.example.foodapp.model.Recipe;
 import java.util.List;
 
 public interface RecipeService {
-    long addRecipe(Recipe recipe);
+    int add(Recipe recipe);
 
-    Recipe getRecipe(long id);
+    Recipe get(int id);
 
-    Recipe editRecipe(long id, Recipe recipe);
+    List<Recipe> getAll();
 
-    List getAllRecipes();
+    Recipe edit(int id, Recipe recipe);
 
-    boolean deleteRecipe(long id);
-
-
-    Recipe get(long id);;
-
-
+    boolean delete(int id);
 }

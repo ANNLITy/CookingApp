@@ -7,15 +7,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Ingredient {
     private String name;
-    private int numberOfIngredients;
+    private int count;
     private String measureUnit;
-
-
 }
 
 

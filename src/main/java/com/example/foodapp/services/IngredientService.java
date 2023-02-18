@@ -5,16 +5,13 @@ import com.example.foodapp.model.Ingredient;
 import java.util.List;
 
 public interface IngredientService {
+    int add(Ingredient ingredient);
 
-    long addIngredient(Ingredient Ingredient);
+    Ingredient get(int id);
 
-    Ingredient getIngredient(long lastId);
+    List<Ingredient> getAll();
 
-    List<Ingredient> getAllIngredients();
+    Ingredient edit(int id, Ingredient ingredient);
 
-    Ingredient editIngredient(long id, Ingredient ingredient);
-
-    boolean deleteIngredient(long id);
-
-
+    boolean delete(int id);
 }
