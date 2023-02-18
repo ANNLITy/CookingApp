@@ -14,6 +14,7 @@ public class FilesServiceImpl implements FilesService {
     @Value("${path.to.data.file}")
     private String dataFilePath;
 
+
     @Override
     public boolean saveToFile(String json, String dataFileName) {
         try {
@@ -24,6 +25,7 @@ public class FilesServiceImpl implements FilesService {
             return false;
         }
     }
+
 
     @Override
     public String reedFromFile(String dataFileName) {
@@ -37,6 +39,7 @@ public class FilesServiceImpl implements FilesService {
         }
     }
 
+
     @Override
     public boolean cleanDataFile(String dataFileName) {
         try {
@@ -49,6 +52,7 @@ public class FilesServiceImpl implements FilesService {
         }
     }
 
+
     @Override
     public Path createTempFile(String suffix) {
         try {
@@ -57,6 +61,7 @@ public class FilesServiceImpl implements FilesService {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public File getDataFile(String dataFileName) {
