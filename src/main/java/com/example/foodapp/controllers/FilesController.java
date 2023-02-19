@@ -39,8 +39,16 @@ public class FilesController {
                     description = "Успешно"
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Файла не существует"
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия нет в веб-приложении"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "есть ошибка в параметрах запроса"
             )
     }
     )
@@ -67,8 +75,16 @@ public class FilesController {
                     description = "Успешно"
             ),
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Файла не существует"
+                    responseCode = "500",
+                    description = "Во время выполнения запроса произошла ошибка на сервере"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия нет в веб-приложении"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "есть ошибка в параметрах запроса"
             )
     }
     )
@@ -88,7 +104,7 @@ public class FilesController {
     }
 
     @PostMapping(value = "/recipes/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "Загрузить файл с рецептами")
+    @Operation(summary = "Загрузить файл со всеми рецептами")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -96,8 +112,17 @@ public class FilesController {
             ),
             @ApiResponse(
                     responseCode = "500",
-                    description = "Ошибка на стороне сервера"
+                    description = "Во время выполнения запроса произошла ошибка на сервере"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "URL неверный или такого действия нет в веб-приложении"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "есть ошибка в параметрах запроса"
             )
+
     }
     )
     public ResponseEntity<Void> uploadRecipesDataFile(@RequestParam MultipartFile file) {

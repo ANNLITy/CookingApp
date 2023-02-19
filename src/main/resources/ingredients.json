@@ -1,1 +1,4 @@
-{"2":{"name":"Творог","count":350,"measureUnit":"г."},"3":{"name":"Куриное яйцо","count":2,"measureUnit":"шт."},"4":{"name":"Пшеничная мука","count":6,"measureUnit":"ст.л."}, "5":{"name":"Сахар ","count":2,"measureUnit":"ст.л."}}
+{"1":{"name":"Творог","count":350,"measureUnit":"г."},
+  "2":{"name":"Куриное яйцо","count":2,"measureUnit":"шт."},
+  "3":{"name":"Пшеничная мука","count":6,"measureUnit":"ст.л."},
+  "4":{"name":"Сахар ","count":2,"measureUnit":"ст.л."}}

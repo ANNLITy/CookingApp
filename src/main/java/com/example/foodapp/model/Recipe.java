@@ -1,10 +1,7 @@
 package com.example.foodapp.model;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,6 +10,7 @@ import java.util.List;
 public class Recipe {
     private String name;
     private int time;
+    private String unitOfTime;
     private int portions;
     private List<Ingredient> ingredients;
     private List<String> steps;
