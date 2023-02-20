@@ -1,4 +1,5 @@
 package com.example.foodapp.impl;
+import com.example.foodapp.model.Ingredient;
 import com.example.foodapp.model.Recipe;
 import com.example.foodapp.services.FilesService;
 import com.example.foodapp.services.RecipeService;
@@ -9,6 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +28,12 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Value("${name.of.data.recipe.file}")
     private String dataFileName;
+
+    @Value("${path.to.data.file}")
+    private String pathToDataFile;
+
+    @Value("${name.of.recipes.file}")
+    private String nameOfRecipes;
 
     public RecipeServiceImpl(FilesService fileService) {
         this.fileService = fileService;
@@ -62,12 +74,40 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public boolean delete(int id) {
-        if(recipes.containsKey(id)) {
+        if (recipes.containsKey(id)) {
             recipes.remove(id);
             saveFile();
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Path createCurrentRecipesFile() {
+        Path path = fileService.createTempFile("currentRecipes");
+        for (Integer integer : recipes.keySet()) {
+            try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)){
+                Recipe recipe = recipes.get(integer);
+                writer.append(recipe.getName()).append("\n");
+                writer.append(String.format("Время приготовления: %d минут.\n", recipe.getTime()));
+                writer.append(String.format("Количество порций: %d.\n", recipe.getPortions()));
+                List<Ingredient> list = recipe.getIngredients();
+                writer.append("Ингредиенты: \n");
+                for (int i = 0; i < list.size(); i++) {
+                    Ingredient ing = list.get(i);
+                    writer.append(String.format("- %s - %d %s.\n", ing.getName(), ing.getCount(), ing.getMeasureUnit()));
+                }
+                writer.append("\nИнструкция приготовления:\n");
+                String[] instruction = recipe.getSteps();
+                for (int i = 0; i < instruction.length; i++) {
+                    writer.append(instruction[i]).append("\n");
+                }
+                writer.append("\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return path;
     }
 
     private void saveFile() {
@@ -93,4 +133,3 @@ public class RecipeServiceImpl implements RecipeService {
         }
     }
 }
-

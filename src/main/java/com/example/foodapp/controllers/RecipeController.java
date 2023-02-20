@@ -9,8 +9,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -21,6 +29,35 @@ public class RecipeController {
 
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
+    }
+    @GetMapping(value = "/exportTxt")
+    @Operation(summary = "Получить txt файл со всеми рецептами")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Успешно"
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Файла не существует или он пуст"
+            )
+    }
+    )
+    public ResponseEntity<Object> downloadRecipesTxt() {
+        try {
+            Path path = recipeService.createCurrentRecipesFile();
+            if (Files.size(path) == 0) {
+                return ResponseEntity.noContent().build();
+            }
+
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(path.toFile()));
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"recipes.txt\"")
+                    .body(resource);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping

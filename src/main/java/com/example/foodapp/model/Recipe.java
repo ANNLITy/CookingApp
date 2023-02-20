@@ -9,9 +9,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Recipe {
     private String name;
-    private int time;
     private String unitOfTime;
+    private int time;
     private int portions;
     private List<Ingredient> ingredients;
-    private List<String> steps;
+    private String[] steps;
 }
